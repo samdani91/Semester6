@@ -16,6 +16,9 @@ public class BoardPage {
     private By memberEmailField = By.id("crawljax_member_email");
     private By submitButton = By.cssSelector("button");
     private By memberAvatar = By.cssSelector("li:nth-child(2) > .react-gravatar");
+    private By listNameField = By.id("list_name");
+    private By listTitle = By.cssSelector("h4");
+    private By addListButton = By.cssSelector(".inner");
 
     public BoardPage(WebDriver driver) {
         this.driver = driver;
@@ -43,5 +46,17 @@ public class BoardPage {
     public boolean isMemberAvatarPresent() {
         List<WebElement> elements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(memberAvatar));
         return elements.size() > 0;
+    }
+
+    public void enterListName(String listName) {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(listNameField)).sendKeys(listName);
+    }
+
+    public String getListTitle() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(listTitle)).getText();
+    }
+
+    public void clickAddListButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(addListButton)).click();
     }
 }

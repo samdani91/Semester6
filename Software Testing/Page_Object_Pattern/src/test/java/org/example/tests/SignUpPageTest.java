@@ -66,4 +66,18 @@ public class SignUpPageTest {
 
         assertEquals("should be at least 5 character(s)", signUpPage.getErrorMessage());
     }
+
+    @Test
+    public void passwordMismatch() {
+        driver.get("http://localhost:4000/sign_up");
+
+        signUpPage.enterFirstName("Samdani");
+        signUpPage.enterLastName("Mozumder");
+        signUpPage.enterEmail("bsse1415@iit.du.ac.bd");
+        signUpPage.enterPassword("123456");
+        signUpPage.enterPasswordConfirmation("123457");
+        signUpPage.clickLoginButton();
+
+        assertEquals("Password does not match", signUpPage.getErrorMessage());
+    }
 }
