@@ -46,7 +46,7 @@ public class SignUpPageTest {
 
         signUpPage.enterFirstName("Samdani");
         signUpPage.enterLastName("Mozumder");
-        signUpPage.enterEmail("bsse1412@iit.du.ac.bd");
+        signUpPage.enterEmail("bsse1413@iit.du.ac.bd");
         signUpPage.enterPassword("iit123");
         signUpPage.enterPasswordConfirmation("iit123");
         signUpPage.clickLoginButton();
