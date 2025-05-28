@@ -14,6 +14,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.Map;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DashboardPageTest {
@@ -39,9 +41,21 @@ public class DashboardPageTest {
     }
 
     public void signIn(){
-        signInPage.enterEmail("bsse1412@iit.du.ac.bd");
-        signInPage.enterPassword("iit123");
         signInPage.clickLoginButton();
+    }
+
+
+    @Test
+    public void boardCreation() {
+        driver.get("http://localhost:4000/");
+
+        signIn();
+
+        dashboardPage.clickAddNewBoard();
+        dashboardPage.enterBoardName("Testing");
+        dashboardPage.clickSubmitButton();
+
+        assertThat(dashboardPage.getBoardTitle(), is("Testing"));
     }
 
     @Test

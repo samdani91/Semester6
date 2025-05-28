@@ -44,4 +44,8 @@ public class DashboardPage {
     public void clickSignoutButton() {
         wait.until(ExpectedConditions.elementToBeClickable(signoutButton)).click();
     }
+
+    public boolean dashboardPageDisplayed() {
+        return wait.until(ExpectedConditions.urlToBe("http://localhost:4000/"));
+    }
 }

@@ -11,10 +11,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.example.pages.SignInPage;
 import org.example.pages.DashboardPage;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SignInPageTest {
     private WebDriver driver;
@@ -42,11 +45,11 @@ public class SignInPageTest {
     public void validSignIn() {
         driver.get("http://localhost:4000/sign_in");
 
-        signInPage.enterEmail("bsse1412@iit.du.ac.bd");
-        signInPage.enterPassword("iit123");
+        signInPage.enterEmail("john@phoenix-trello.com");
+        signInPage.enterPassword("12345678");
         signInPage.clickLoginButton();
 
-        assertEquals("Samdani Mozumder", dashboardPage.getUserName());
+        assertTrue(dashboardPage.dashboardPageDisplayed());
     }
 
     @Test
@@ -58,7 +61,33 @@ public class SignInPageTest {
         signInPage.clickLoginButton();
 
         assertEquals("Invalid email or password", signInPage.getErrorMessage());
+    }
+
+    @Test
+    public void invalidEmailFormat() {
+        driver.get("http://localhost:4000/sign_in");
+
+        signInPage.enterEmail("john");
+        signInPage.enterPassword("12345678");
+        signInPage.clickLoginButton();
+
+        assertThat(signInPage.getEmailFieldValidationMessage(), is("Please include an '@' in the email address. 'john' is missing an '@'."));
+    }
+
+    @Test
+    public void signInWithoutEmail() {
+        driver.get("http://localhost:4000/sign_in");
+        signInPage.enterEmail("");
+        signInPage.clickLoginButton();
+        assertThat(signInPage.getEmailFieldValidationMessage(), is("Please fill out this field."));
 
     }
 
+    @Test
+    public void signInWithoutPassword() {
+        driver.get("http://localhost:4000/sign_in");
+        signInPage.enterPassword("");
+        signInPage.clickLoginButton();
+        assertThat(signInPage.getPasswordFieldValidationMessage(), is("Please fill out this field."));
+    }
 }

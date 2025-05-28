@@ -1,6 +1,7 @@
 package org.example.tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.example.pages.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
@@ -11,9 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
-import org.example.pages.SignInPage;
-import org.example.pages.BoardPage;
-import org.example.pages.CardPage;
+
 import java.util.*;
 
 public class CardPageTest {
@@ -23,6 +22,8 @@ public class CardPageTest {
     private SignInPage signInPage;
     private BoardPage boardPage;
     private CardPage cardPage;
+    private ListPage listPage;
+    private DashboardPage dashboardPage;
 
     @BeforeEach
     public void setUp() {
@@ -32,7 +33,10 @@ public class CardPageTest {
         signInPage = new SignInPage(driver);
         boardPage = new BoardPage(driver);
         cardPage = new CardPage(driver);
+        listPage = new ListPage(driver);
+        dashboardPage = new DashboardPage(driver);
         driver.manage().window().setSize(new Dimension(918, 751));
+
     }
 
     @AfterEach
@@ -40,8 +44,33 @@ public class CardPageTest {
         driver.quit();
     }
 
+    public void boardCreation() {
+        dashboardPage.clickAddNewBoard();
+        dashboardPage.enterBoardName("testing");
+        dashboardPage.clickSubmitButton();
+
+    }
+
+    public void addList() {
+        boardPage.clickAddListButton();
+        boardPage.enterListName("list1");
+        boardPage.clickSubmitButton();
+    }
+
+    public void addCard() {
+        driver.get("http://localhost:4000/sign_in");
+        signInPage.clickLoginButton();
+        boardCreation();
+        addList();
+        listPage.clickAddCardLink();
+        listPage.enterCardName("Card 1");
+        listPage.clickSubmitButton();
+        dashboardPage.clickSignoutButton();
+    }
+
     @Test
     public void addComment() {
+        addCard();
         driver.get("http://localhost:4000/sign_in");
         signInPage.clickLoginButton();
         boardPage.clickBoardById("testing");
@@ -50,6 +79,14 @@ public class CardPageTest {
         cardPage.clickSubmitButton();
         assertThat(cardPage.isCommentPresent(), is(true));
     }
+
+    @Test
+    public void checkCommentTime() {
+        addComment();
+        assertThat(cardPage.getCommentTime(), is("6 hours ago"));
+    }
+
+
 
     @Test
     public void editCardTitle() {
@@ -68,7 +105,6 @@ public class CardPageTest {
         driver.get("http://localhost:4000/sign_in");
         signInPage.clickLoginButton();
         boardPage.clickBoardById("testing");
-        cardPage.clickListTitle();
         cardPage.clickCardContent("1");
         cardPage.clickEditLink();
         cardPage.enterDescription("card 1 description");
@@ -105,7 +141,7 @@ public class CardPageTest {
         driver.get("http://localhost:4000/sign_in");
         signInPage.clickLoginButton();
         boardPage.clickBoardById("testing");
-        String cardId = "2";
+        String cardId = "1";
         if (cardPage.isCardPresent(cardId)) {
             cardPage.clickCardContent(cardId);
             cardPage.clickDeleteButton();

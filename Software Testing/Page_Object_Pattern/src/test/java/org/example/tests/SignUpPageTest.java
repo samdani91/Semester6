@@ -8,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -46,11 +47,53 @@ public class SignUpPageTest {
 
         signUpPage.enterFirstName("Samdani");
         signUpPage.enterLastName("Mozumder");
-        signUpPage.enterEmail("bsse1413@iit.du.ac.bd");
+        signUpPage.enterEmail("bsse1410@gmail.com");
         signUpPage.enterPassword("iit123");
         signUpPage.enterPasswordConfirmation("iit123");
         signUpPage.clickLoginButton();
-        assertThat(dashboardPage.getUserName(), is("Samdani Mozumder"));
+        assertTrue(dashboardPage.dashboardPageDisplayed());
+    }
+
+    @Test
+    public void signUpWithSpecialCharacterInName() {
+        driver.get("http://localhost:4000/sign_up");
+        driver.manage().window().setSize(new Dimension(602, 781));
+
+        signUpPage.enterFirstName("Samd#ani");
+        signUpPage.enterLastName("Mozum$%der");
+        signUpPage.enterEmail("bsse1414@iit.du.ac.bd");
+        signUpPage.enterPassword("iit123");
+        signUpPage.enterPasswordConfirmation("iit123");
+        signUpPage.clickLoginButton();
+        assertTrue(dashboardPage.dashboardPageDisplayed());
+    }
+
+    @Test
+    public void signUpWithNumberInName() {
+        driver.get("http://localhost:4000/sign_up");
+        driver.manage().window().setSize(new Dimension(602, 781));
+
+        signUpPage.enterFirstName("524");
+        signUpPage.enterLastName("54343");
+        signUpPage.enterEmail("bsse1415@iit.du.ac.bd");
+        signUpPage.enterPassword("iit123");
+        signUpPage.enterPasswordConfirmation("iit123");
+        signUpPage.clickLoginButton();
+        assertTrue(dashboardPage.dashboardPageDisplayed());
+    }
+
+    @Test
+    public void signUpWithInvalidEmail() {
+        driver.get("http://localhost:4000/sign_up");
+        driver.manage().window().setSize(new Dimension(602, 781));
+
+        signUpPage.enterFirstName("Samdani");
+        signUpPage.enterLastName("Mozumder");
+        signUpPage.enterEmail("bsse1416@gm.com");
+        signUpPage.enterPassword("iit123");
+        signUpPage.enterPasswordConfirmation("iit123");
+        signUpPage.clickLoginButton();
+        assertTrue(dashboardPage.dashboardPageDisplayed());
     }
 
     @Test

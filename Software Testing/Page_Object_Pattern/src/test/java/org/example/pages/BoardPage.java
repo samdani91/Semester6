@@ -19,6 +19,7 @@ public class BoardPage {
     private By listNameField = By.id("list_name");
     private By listTitle = By.cssSelector("h4");
     private By addListButton = By.cssSelector(".inner");
+    private By errorMessage = By.cssSelector(".error");
 
     public BoardPage(WebDriver driver) {
         this.driver = driver;
@@ -37,6 +38,11 @@ public class BoardPage {
     public void enterMemberEmail(String email) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(memberEmailField)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(memberEmailField)).sendKeys(email);
+    }
+
+    public String getEmailFieldValidationMessage() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(memberEmailField)).clear();
+        return wait.until(ExpectedConditions.presenceOfElementLocated(memberEmailField)).getAttribute("validationMessage");
     }
 
     public void clickSubmitButton() {
@@ -58,5 +64,9 @@ public class BoardPage {
 
     public void clickAddListButton() {
         wait.until(ExpectedConditions.elementToBeClickable(addListButton)).click();
+    }
+
+    public String getErrorMessage() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText();
     }
 }

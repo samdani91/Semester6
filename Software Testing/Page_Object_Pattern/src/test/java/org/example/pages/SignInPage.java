@@ -19,11 +19,9 @@ public class SignInPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-
     public void clickLoginButton() {
         wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
     }
-
 
     public void enterEmail(String email) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(emailField)).clear();
@@ -43,4 +41,11 @@ public class SignInPage {
         return wait.until(ExpectedConditions.urlToBe("http://localhost:4000/sign_in"));
     }
 
+    public String getEmailFieldValidationMessage() {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(emailField)).getAttribute("validationMessage");
+    }
+
+    public String getPasswordFieldValidationMessage() {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(passwordField)).getAttribute("validationMessage");
+    }
 }

@@ -15,7 +15,7 @@ public class CardPage {
     private By commentTextarea = By.cssSelector("textarea");
     private By submitButton = By.cssSelector("button");
     private By commentText = By.cssSelector(".text");
-    private By listTitle = By.cssSelector("h4");
+    private By commentTime = By.xpath("//div[@id='authentication_container']/div/div/div[2]/div/div/div/div[2]/div/div[2]/small");
     private By editLink = By.linkText("Edit");
     private By titleInput = By.cssSelector("input");
     private By descriptionTextarea = By.cssSelector("textarea:nth-child(2)");
@@ -26,9 +26,9 @@ public class CardPage {
     private By greenTag = By.cssSelector(".green");
     private By cardTags = By.cssSelector(".card-tags");
     private By deleteButton = By.cssSelector(".fa-trash-o");
-    private By addMemberButton = By.cssSelector(".button:nth-child(2) > span"); // Locator for "Add Member" button
-    private By memberOption = By.cssSelector("ul:nth-child(2) span:nth-child(2)"); // Locator for selecting a member
-    private By cardMembers = By.cssSelector(".card-members"); // Locator for verifying members
+    private By addMemberButton = By.cssSelector(".button:nth-child(2) > span");
+    private By memberOption = By.cssSelector("ul:nth-child(2) span:nth-child(2)");
+    private By cardMembers = By.cssSelector(".card-members");
 
     public CardPage(WebDriver driver) {
         this.driver = driver;
@@ -36,13 +36,13 @@ public class CardPage {
     }
 
     private By getCardContentLocator(String cardId) {
-        return By.cssSelector("#card_" + cardId + " > .card-content > span");
+        return By.cssSelector(".card-content > span");
     }
 
     public boolean isCardPresent(String cardId) {
         By cardLocator = getCardContentLocator(cardId);
         List<WebElement> elements = driver.findElements(cardLocator);
-        return elements.size() > 0;
+        return !elements.isEmpty();
     }
 
     public void clickCardContent(String cardId) {
@@ -61,29 +61,23 @@ public class CardPage {
 
     public boolean isCommentPresent() {
         List<WebElement> elements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(commentText));
-        return elements.size() > 0;
-    }
-
-    public void clickListTitle() {
-        wait.until(ExpectedConditions.elementToBeClickable(listTitle)).click();
+        return !elements.isEmpty();
     }
 
     public void clickEditLink() {
         wait.until(ExpectedConditions.elementToBeClickable(editLink)).click();
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(editLink));
-        Actions builder = new Actions(driver);
-        builder.moveToElement(element).perform();
     }
 
     public void enterNewTitle(String title) {
         WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(titleInput));
-        input.click();
+        input.clear();
         input.sendKeys(title);
     }
 
     public void enterDescription(String description) {
         WebElement textarea = wait.until(ExpectedConditions.visibilityOfElementLocated(descriptionTextarea));
         textarea.click();
+        textarea.clear();
         textarea.sendKeys(description);
     }
 
@@ -93,6 +87,10 @@ public class CardPage {
 
     public String getUpdatedTitle() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(updatedTitle)).getText();
+    }
+
+    public String getCommentTime(){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(commentTime)).getText();
     }
 
     public String getUpdatedDescription() {
@@ -118,14 +116,13 @@ public class CardPage {
 
     public boolean isTagPresent() {
         List<WebElement> elements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(cardTags));
-        return elements.size() > 0;
+        return !elements.isEmpty();
     }
 
     public void clickDeleteButton() {
         wait.until(ExpectedConditions.elementToBeClickable(deleteButton)).click();
     }
 
-    // New methods for adding a member
     public void clickAddMemberButton() {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(addMemberButton));
         element.click();
@@ -139,6 +136,6 @@ public class CardPage {
 
     public boolean isMemberPresent() {
         List<WebElement> elements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(cardMembers));
-        return elements.size() > 0;
+        return !elements.isEmpty();
     }
 }
