@@ -1,0 +1,175 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MyMath</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">math</a>
+</div>
+
+<h1>Coverage Summary for Class: MyMath (math)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MyMath</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (14/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package math;
+&nbsp;
+&nbsp;/**
+&nbsp; * The MyMath provides simple methods such as computing a factorial or finding
+&nbsp; * whether an integer is prime
+&nbsp; *
+&nbsp; * @author pandeliskirpoglou
+&nbsp; * @version 1.0
+&nbsp; * @since 2020-04-15
+&nbsp; */
+&nbsp;
+<b class="fc">&nbsp;public class MyMath {</b>
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets one integer and returns it&#39;s factorial.
+&nbsp;	 * 
+&nbsp;	 * @param n the number of which we want the factorial
+&nbsp;	 * @return fact the factorial of the number n
+&nbsp;	 * @exception IllegalArgumentException when inputs n &lt; 0 and n &gt; 12
+&nbsp;	 */
+&nbsp;
+&nbsp;	public int factorial(int n) {
+<b class="fc">&nbsp;		int fact = 1;</b>
+<b class="fc">&nbsp;		if (n &lt; 0 || n &gt; 12) {</b>
+<b class="fc">&nbsp;			throw new IllegalArgumentException(&quot;number should be 0 or above and 12 or below&quot;);</b>
+&nbsp;		} else {
+<b class="fc">&nbsp;			for (int i = 1; i &lt;= n; i++) {</b>
+<b class="fc">&nbsp;				fact = fact * i;</b>
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+<b class="fc">&nbsp;		return fact;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Gets one integer and returns true if it is prime and false if it is not.
+&nbsp;	 * 
+&nbsp;	 * @param n the number we are trying to find out whether it is prime or not
+&nbsp;	 * @return isPrimeNumber true if n is prime | false if n is not prime
+&nbsp;	 * @exception IllegalArgumentException when inputs n &lt; 2
+&nbsp;	 */
+&nbsp;
+&nbsp;	public boolean isPrime(int n) {
+<b class="fc">&nbsp;		boolean isPrimeNumber = true;</b>
+<b class="fc">&nbsp;		if (n &lt; 2) {</b>
+<b class="fc">&nbsp;			throw new IllegalArgumentException(&quot;No prime numbers below 2&quot;);</b>
+&nbsp;		} else {
+<b class="fc">&nbsp;			for (int i = 2; i &lt;= n / 2; ++i) {  // Checking to n/2 for complexity</b>
+<b class="fc">&nbsp;				if (n % i == 0) {</b>
+<b class="fc">&nbsp;					isPrimeNumber = false;</b>
+&nbsp;					break;
+&nbsp;				}
+&nbsp;			}
+&nbsp;		}
+&nbsp;
+<b class="fc">&nbsp;		return isPrimeNumber;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-07-03 20:45</div>
+</div>
+</body>
+</html>
