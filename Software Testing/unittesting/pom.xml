@@ -66,7 +66,6 @@
 				<artifactId>pitest-maven</artifactId>
 				<version>1.16.2</version>
 				<configuration>
-					<testPlugin>junit5</testPlugin>
 					<targetClasses>
 						<param>io.*</param>
 						<param>math.*</param><!-- Broadened to include all classes; adjust to your package -->
