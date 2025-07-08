@@ -65,8 +65,6 @@ class ArithmeticOperationsTest {
         assertEquals(expected, actual,1e-2);
     }
 
-
-
     @Test
     void multiply_positive_arguments() {
         int expected = 15;
@@ -118,5 +116,18 @@ class ArithmeticOperationsTest {
             arithmeticOperations.multiply(2147483647,2147483647);
         });
 
+    }
+
+    @Test
+    void multiply_y_value_zero_with_large_x() {
+        int expected = 0;
+        int actual = arithmeticOperations.multiply(Integer.MAX_VALUE, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void test_multiply__max_boundary() {
+        int maxDiv2 = Integer.MAX_VALUE / 2;
+        assertEquals(maxDiv2 * 2, arithmeticOperations.multiply(maxDiv2, 2));
     }
 }

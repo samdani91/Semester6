@@ -41,6 +41,20 @@ class MyMathTest {
     }
 
     @Test
+    void factorial_zero() {
+        int expected = 1;
+        int actual = myMath.factorial(0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void factorial_twelve() {
+        int expected = 479001600;
+        int actual = myMath.factorial(12);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void isPrime() {
         boolean expected = true;
         boolean actual = myMath.isPrime(2);
