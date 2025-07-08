@@ -1,0 +1,6 @@
+target/maven-status
+target/pit-reports
+target/site
+target/surefire-reports
+target/jacoco.exec
+target/unittesting-0.0.1-SNAPSHOT.jar
