@@ -43,6 +43,7 @@ public class FileIO {
 					int number = Integer.parseInt(line);
 					numbersList.add(number);
 				} catch (NumberFormatException e) {
+					throw new NumberFormatException();
 					// Do nothing will skip the  current invalid line
 				}
 			}

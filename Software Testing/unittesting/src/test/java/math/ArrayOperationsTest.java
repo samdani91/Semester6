@@ -31,12 +31,21 @@ class ArrayOperationsTest {
     }
 
     @Test
-    void findPrimesInFile() {
-        String filePath = "/home/samdani1412/Desktop/Semester6/Software Testing/unittesting/src/test/resources/grades_valid.txt";
+    void findPrimesInFileWithZero() {
+        String filePath = "src/test/resources/grades_valid.txt";
+        assertThrows(IllegalArgumentException.class, () -> {
+            arrayOperations.findPrimesInFile(fileio, filePath, myMath);
+        });
+    }
+
+    @Test
+    void findPrimesInFileWithOutZero() {
+        String filePath = "src/test/resources/primeFile.txt";
         int[] expected = {3, 2, 3, 3};
         int[] result = arrayOperations.findPrimesInFile(fileio, filePath, myMath);
         assertArrayEquals(expected, result);
     }
+
 
     @Test
     void findPrimesInFile_withMixedNumbers_returnsPrimeNumbers() throws IOException {

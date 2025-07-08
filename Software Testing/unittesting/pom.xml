@@ -1,44 +1,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-<!--	<parent>-->
-		<groupId>gr.aueb.dmst.pandeliskirpoglou</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+
+	<!-- Module Info -->
+	<groupId>gr.aueb.dmst.pandeliskirpoglou</groupId>
+	<artifactId>unittesting</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Testing Arithmetic Operations</name>
+	<description>This is a module for testing basic arithmetic operations</description>
+
+	<!-- Properties -->
+	<properties>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<jacoco.version>0.8.12</jacoco.version> <!-- Updated to latest as of 2025 -->
+		<pitest.version>1.16.0</pitest.version> <!-- Updated to latest as of 2025 -->
+	</properties>
+
+	<!-- Dependencies -->
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>RELEASE</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<version>RELEASE</version>
+			<version>5.10.2</version> <!-- Latest stable version as of 2025 -->
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<!--	</parent>-->
 
-	<!-- Info of module -->
-	<artifactId>unittesting</artifactId>
-	<name>Testing Arithmetic Operations</name>
-	<description>This is a module for testing basic arithmetic operations</description>
-	<properties>
-		<maven.compiler.source>23</maven.compiler.source>
-		<maven.compiler.target>23</maven.compiler.target>
-	</properties>
+	<!-- Build Configuration -->
 	<build>
 		<plugins>
+			<!-- Compiler Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>11</source>
-					<target>11</target>
-				</configuration>
+				<version>3.11.0</version> <!-- Consider checking for newer version -->
 			</plugin>
+
+			<!-- JaCoCo for Code Coverage -->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -50,10 +50,40 @@
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
 				</executions>
+			</plugin>
+
+			<!-- PIT for Mutation Testing -->
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>1.16.2</version>
+				<configuration>
+					<testPlugin>junit5</testPlugin>
+					<targetClasses>
+						<param>io.*</param>
+						<param>math.*</param><!-- Broadened to include all classes; adjust to your package -->
+					</targetClasses>
+					<targetTests>
+						<param>io.*</param>
+						<param>math.*</param> <!-- Broadened to include all test classes; adjust to your package -->
+					</targetTests>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-junit5-plugin</artifactId>
+						<version>1.2.1</version> <!-- Consider checking for newer version -->
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

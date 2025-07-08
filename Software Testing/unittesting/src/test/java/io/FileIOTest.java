@@ -24,28 +24,28 @@ class FileIOTest {
     @Test
     void read_empty_file() {
         assertThrows(IllegalArgumentException.class, () -> {
-            fileio.readFile("/home/samdani1412/Desktop/Semester6/Software Testing/unittesting/src/test/resources/empty_file.txt");
+            fileio.readFile("src/test/resources/empty_file.txt");
         });
     }
 
     @Test
     void non_existing_file() {
         assertThrows(IllegalArgumentException.class, () -> {
-            fileio.readFile("/home/samdani1412/noFile.txt");
+            fileio.readFile("/home/noFile.txt");
         });
     }
 
     @Test
     void check_invalid_entries(){
         assertThrows(NumberFormatException.class, () -> {
-            fileio.readFile("/home/samdani1412/Desktop/Semester6/Software Testing/unittesting/src/test/resources/grades_invalid.txt");
+            fileio.readFile("src/test/resources/grades_invalid.txt");
         });
     }
 
     @Test
     void check_valid_entries(){
         int[] expected = {3, 9, 0, 2, 10, 9, 3, 8, 0, 3};
-        int[] actual = fileio.readFile("/home/samdani1412/Desktop/Semester6/Software Testing/unittesting/src/test/resources/grades_valid.txt");
+        int[] actual = fileio.readFile("src/test/resources/grades_valid.txt");
 
         assertArrayEquals(expected, actual);
 
